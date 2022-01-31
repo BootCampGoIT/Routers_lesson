@@ -44,6 +44,11 @@ const HeaderContainer = styled.header`
   .themeOptionTitle {
     color: white;
   }
+
+  .navigation {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export default HeaderContainer;

@@ -3,6 +3,7 @@ import HeaderContainer from "./HeaderStyled";
 import sprite from "../../icons/headerIcons.svg";
 import Modal from "../modal/Modal";
 import ThemeSwitcher from "../themeSwitcher/ThemeSwitcher";
+import Navigation from "../navigation/Navigation";
 
 const Header = () => {
   const [isOptionsOpen, toggleOptions] = useState(false);
@@ -12,10 +13,13 @@ const Header = () => {
       <svg className='headerLogo'>
         <use href={sprite + "#icon-home"} />
       </svg>
-      <div className='optionsOverlay' onClick={toggleModal}>
-        <svg className='headerOptions'>
-          <use href={sprite + "#icon-dots-three-vertical"} />
-        </svg>
+      <div className='navigation'>
+        <Navigation />
+        <div className='optionsOverlay' onClick={toggleModal}>
+          <svg className='headerOptions'>
+            <use href={sprite + "#icon-dots-three-vertical"} />
+          </svg>
+        </div>
       </div>
       {isOptionsOpen && (
         <Modal closeModal={toggleModal}>
