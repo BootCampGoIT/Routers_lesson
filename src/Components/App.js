@@ -1,10 +1,11 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext } from "react";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "../styles/globalStyles";
 import useTheme from "../hooks/usePersistedTheme";
 import { AppStyled } from "./AppStyled";
 import Header from "./header/Header";
 import Main from "./main/Main";
+
 export const {
   Provider: ThemeContextProvider,
   Consumer: ThemeContextConsumer,

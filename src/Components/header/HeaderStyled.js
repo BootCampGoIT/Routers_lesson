@@ -14,7 +14,7 @@ const HeaderContainer = styled.header`
   .headerLogo {
     width: 30px;
     height: 30px;
-    fill: #6495ed;
+    fill: ${(props) => props.theme.colors.main};
   }
 
   .headerOptions {

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import themes from "../themes";
 
 const useTheme = () => {
@@ -8,9 +7,8 @@ const useTheme = () => {
     return themes[storageValue] || themes.dark;
   });
 
-  const toggler = () => {
+  const toggler = () =>
     setTheme((prev) => (prev.title === "light" ? themes.dark : themes.light));
-  };
 
   useEffect(() => {
     localStorage.setItem("theme", JSON.stringify(theme.title));
