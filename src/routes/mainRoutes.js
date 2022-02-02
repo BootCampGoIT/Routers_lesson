@@ -10,7 +10,7 @@ const mainRoutes = [
   },
   {
     name: "Courses",
-    path: "courses/*",
+    path: "courses",
     component: CoursesPage,
   },
 ];
