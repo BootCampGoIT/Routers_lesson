@@ -18,6 +18,15 @@ const Navigation = ({ links }) => {
             </NavLink>
           </li>
         ))}
+        <li className='navListItem'>
+          <NavLink
+            to='profile'
+            className={({ isActive }) =>
+              isActive ? "navItemActive" : "navItem"
+            }>
+            Profile
+          </NavLink>
+        </li>
       </ul>
     </NavigationContainer>
   );
