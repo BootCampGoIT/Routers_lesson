@@ -27,6 +27,24 @@ const Navigation = ({ links }) => {
             Profile
           </NavLink>
         </li>
+        <li className='navListItem'>
+          <NavLink
+            to='signin'
+            className={({ isActive }) =>
+              isActive ? "navItemActive" : "navItem"
+            }>
+            Sign In
+          </NavLink>
+        </li>
+        <li className='navListItem'>
+          <NavLink
+            to='signup'
+            className={({ isActive }) =>
+              isActive ? "navItemActive" : "navItem"
+            }>
+            Sign Up
+          </NavLink>
+        </li>
       </ul>
     </NavigationContainer>
   );

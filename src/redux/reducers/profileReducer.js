@@ -1,25 +1,15 @@
-import { ADD_PROFILE_INFO, SIGN_OUT } from "../actions/profileActions";
+import { createReducer } from "@reduxjs/toolkit";
+import { addProfileInfo, signOut } from "../actions/profileActions";
 
 const initialState = {
   firstName: "",
   lastName: "",
   id: "",
-  info: {
-    dfghb: "vcfghvbj",
-  },
 };
 
-const profileReducer = (state = initialState, action) => {
-  console.log("profileReducer", action);
-
-  switch (action.type) {
-    case ADD_PROFILE_INFO:
-      return { ...state, ...action.payload };
-    case SIGN_OUT:
-      return initialState;
-    default:
-      return state;
-  }
-};
+const profileReducer = createReducer(initialState, {
+  [addProfileInfo]: (state, { payload }) => ({ ...state, ...payload }),
+  [signOut]: () => initialState,
+});
 
 export default profileReducer;

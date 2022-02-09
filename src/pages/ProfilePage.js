@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addProfileInfo, signOut } from "../redux/actions/profileActions";
+import { profileSelector } from "../redux/selectors";
 
 const initialState = {
   firstName: "",
@@ -11,8 +12,10 @@ const initialState = {
 const ProfilePage = () => {
   const [state, setState] = useState(initialState);
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.profile.info);
-  const data = useSelector((state) => state.test.message);
+  const profile = useSelector(profileSelector);
+  useEffect(() => {
+    setState(profile);
+  }, [profile]);
 
   const onHandleChange = (e) => {
     const { name, value } = e.target;
