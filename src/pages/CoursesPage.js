@@ -1,38 +1,24 @@
 import axios from "axios";
 import React, { Suspense, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import CourseDetailsPage from "../Components/courses/CourseDetailsPage";
 import CourseForm from "../Components/courses/CourseForm";
 import CourseList from "../Components/courses/CourseList";
 import Navigation from "../Components/navigation/Navigation";
+import { getCoursesOperation } from "../redux/operations/courses";
 import coursesRoutes from "../routes/coursesRoutes";
 
 const CoursesPage = ({ routePath }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [courses, setCourses] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getCourses();
+    dispatch(getCoursesOperation());
     location.pathname === routePath &&
       navigate(`${location.pathname}/${coursesRoutes[0].path}`);
   }, []);
-
-  const getCourses = async () => {
-    try {
-      const res = await axios.get(
-        "https://courses-b777d-default-rtdb.firebaseio.com/courses.json"
-      );
-      const courses = Object.keys(res.data).map((key) => ({
-        id: key,
-        ...res.data[key],
-      }));
-
-      setCourses(courses);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const addCourse = async (course) => {
     try {
@@ -40,8 +26,6 @@ const CoursesPage = ({ routePath }) => {
         "https://courses-b777d-default-rtdb.firebaseio.com/courses.json",
         course
       );
-
-      setCourses((prev) => [...prev, { ...course, id: res.data.name }]);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +49,7 @@ const CoursesPage = ({ routePath }) => {
       <Routes>
         <Route path='create' element={<CourseForm addCourse={addCourse} />} />
         <Route path='list/*'>
-          <Route index element={<CourseList courses={courses} />} />
+          <Route index element={<CourseList courses={[]} />} />
           <Route
             path=':courseId'
             element={<CourseDetailsPage getCourseDetails={getCourseDetails} />}

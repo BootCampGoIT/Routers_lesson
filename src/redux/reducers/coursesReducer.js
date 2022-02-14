@@ -1,21 +1,53 @@
-// import { ADD_PROFILE_INFO, SIGN_OUT } from "../actions/profileActions";
+import { createAction, createReducer, nanoid } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+const addCourse = createAction("addCourse");
+// const addCourse = (payload) => ({ type: "addCourse", payload });
+const getCourses = (payload) => ({ type: "getCourses", payload });
+const deleteCourse = (payload) => ({ type: "deleteCourse", payload });
+const setLoader = createAction("setLoader");
+const setError = (payload) => ({ type: "setError", payload });
+const resetError = () => ({ type: "resetError" });
 
-const initialState = {
-  coursesList: [],
-  isLoading: false,
-  error: "",
-};
+export { addCourse, getCourses, deleteCourse, setLoader, setError, resetError };
 
-const coursesReducer = (state = initialState, action) => {
-  console.log("coursesReducer", action);
+const getCoursesRequest = createAction("/courses/request");
+const getCoursesSuccess = createAction("/courses/getSuccess");
+const getCoursesError = createAction("/courses/error");
+
+export { getCoursesRequest, getCoursesSuccess, getCoursesError };
+
+const loaderReducer = createReducer(false, {
+  [getCoursesRequest]: () => true,
+  [getCoursesSuccess]: () => false,
+  [getCoursesError]: () => false,
+});
+
+console.log(nanoid());
+
+const errorReducer = (state = "", action) => {
   switch (action.type) {
-    // case ADD_PROFILE_INFO:
-    //   return { ...state, error: "Something ...." };
-    // case SIGN_OUT:
-    //   return initialState;
+    case "setError":
+      return action.payload;
+    case "/courses/error":
+      return action.payload;
+    case "resetError":
+      return "";
     default:
       return state;
   }
 };
+
+const coursesList = createReducer([], {
+  [getCoursesSuccess]: (_, action) => action.payload,
+  [addCourse]: (state, action) => [...state, action.payload],
+  [deleteCourse]: (state, action) =>
+    state.filter((course) => course.id !== action.payload),
+});
+
+const coursesReducer = combineReducers({
+  isLoading: loaderReducer,
+  error: errorReducer,
+  coursesList,
+});
 
 export default coursesReducer;
