@@ -9,15 +9,6 @@ import {
   setLoader,
 } from "../reducers/coursesReducer";
 
-// const course = { name: "dfg", d: "" };
-
-// middleware
-// export const addCourseOperation = (course) => (dispatch, getState) => {
-//   axios.post(
-//     "https://courses-b777d-default-rtdb.firebaseio.com/courses.json",
-//     course
-//   );
-// };
 
 export const getCoursesOperation = () => async (dispatch, getState) => {
   dispatch(getCoursesRequest()); // request
